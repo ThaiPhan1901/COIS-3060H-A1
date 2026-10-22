@@ -1,0 +1,9 @@
+{
+  "name": "msr-research-guide",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A reference guide for Mining Software Repositories research.",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

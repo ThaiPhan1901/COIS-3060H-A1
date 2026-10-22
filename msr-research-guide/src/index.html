@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical reference guide to Mining Software Repositories data sources, collection methods, analysis methods, and publication venues.">
+  <title>MSR Research Guide</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="MSR Research Guide home">
+        <span class="brand-mark" aria-hidden="true">MSR</span>
+        <span><strong>MSR Research Guide</strong><small>A practical reference for software engineering research</small></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <p class="eyebrow">RESEARCH HANDBOOK</p>
+      <h1>Explore Mining Software Repositories</h1>
+      <p class="intro-copy">Find data, choose collection and analysis techniques, and discover publication venues for empirical software engineering research.</p>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Research guide sections">
+      <button class="tab is-active" id="tab-sources" type="button" role="tab" aria-selected="true" aria-controls="panel-sources" data-tab="sources">Data Sources</button>
+      <button class="tab" id="tab-collection" type="button" role="tab" aria-selected="false" aria-controls="panel-collection" data-tab="collection" tabindex="-1">Collection Methods</button>
+      <button class="tab" id="tab-analysis" type="button" role="tab" aria-selected="false" aria-controls="panel-analysis" data-tab="analysis" tabindex="-1">Analysis Methods</button>
+      <button class="tab" id="tab-venues" type="button" role="tab" aria-selected="false" aria-controls="panel-venues" data-tab="venues" tabindex="-1">Publication Venues</button>
+    </nav>
+
+    <section class="content-panel" id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" data-panel="sources">
+      <div class="section-heading"><div><p class="eyebrow">01 / FIND DATA</p><h2>Data Sources</h2></div><p>Common sources of evidence about software development, collaboration, and project outcomes.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Source</th><th>Data provided</th><th>Description</th></tr></thead><tbody>
+        <tr><td><strong>GitHub</strong></td><td>Repositories, commits, pull requests, issues, stars</td><td>Hosts source code and collaboration histories useful for studying development activity, code review, and project evolution.</td></tr>
+        <tr><td><strong>Stack Overflow</strong></td><td>Questions, answers, tags, user reputation</td><td>Community question-and-answer data can support research on developer knowledge sharing and problem solving.</td></tr>
+        <tr><td><strong>JIRA</strong></td><td>Issues, sprint data, bug reports</td><td>Issue-tracking records help researchers examine task management, defect resolution, and agile workflows.</td></tr>
+        <tr><td><strong>App Stores</strong><br><span class="muted">Google Play and Apple App Store</span></td><td>Reviews, ratings, downloads (availability varies)</td><td>App-store data supports studies of user feedback, perceived quality, and app popularity. Access and available fields vary by store and collection method.</td></tr>
+        <tr><td><strong>Travis CI / Jenkins</strong></td><td>Build logs, test results, deployment data</td><td>Continuous integration records can be used to investigate build failures, testing practices, and delivery pipelines.</td></tr>
+        <tr><td><strong>Mailing Lists</strong></td><td>Developer discussions and archives</td><td>Archived conversations provide qualitative evidence about design decisions, coordination, and community practices.</td></tr>
+        <tr><td><strong>npm Registry</strong></td><td>Package dependencies, downloads, versions</td><td>Package metadata supports research on dependency networks, package evolution, and ecosystem health.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="content-panel" id="panel-collection" role="tabpanel" aria-labelledby="tab-collection" data-panel="collection" hidden>
+      <div class="section-heading"><div><p class="eyebrow">02 / GATHER EVIDENCE</p><h2>Collection Methods</h2></div><p>Choose a collection approach based on the source, scale, reproducibility, and data access rules.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>What it is used for</th><th>Advantages</th><th>Limitations</th></tr></thead><tbody>
+        <tr><td><strong>REST APIs</strong></td><td>Structured requests to services such as GitHub and Stack Overflow.</td><td>Structured responses; documented endpoints; usually easier to automate.</td><td>Rate limits, authentication requirements, and endpoint-specific data limits.</td></tr>
+        <tr><td><strong>GraphQL</strong></td><td>Flexible queries, such as selecting related GitHub objects and specific fields.</td><td>Fetches selected fields in a request; can reduce unnecessary data transfer.</td><td>Query complexity limits, pagination, and a learning curve.</td></tr>
+        <tr><td><strong>Web Scraping — Selenium</strong></td><td>Automating browser interaction and collecting dynamic pages when permitted.</td><td>Can interact with JavaScript-rendered content and browser workflows.</td><td>Slower and more fragile; site changes can break scripts; respect terms and robots policies.</td></tr>
+        <tr><td><strong>Web Scraping — BeautifulSoup</strong></td><td>Parsing HTML pages, especially static pages that have already been retrieved.</td><td>Lightweight and straightforward for extracting structured elements from HTML.</td><td>Does not execute JavaScript; page layout changes can break selectors.</td></tr>
+        <tr><td><strong>Database Dumps</strong><br><span class="muted">GHTorrent, SOTorrent</span></td><td>Large-scale or historical repository and community data.</td><td>Useful for bulk analysis and repeatable research on a fixed snapshot.</td><td>May be dated, large to store, incomplete, or costly to process.</td></tr>
+        <tr><td><strong>Manual Download</strong></td><td>One-time datasets and CSV exports.</td><td>Easy for small studies; minimal code required.</td><td>Hard to repeat at scale; manual steps can introduce errors and become outdated.</td></tr>
+      </tbody></table></div>
+      <p class="note"><strong>Good practice:</strong> record the collection date, query or script, API version where relevant, inclusion criteria, and known missing data.</p>
+    </section>
+
+    <section class="content-panel" id="panel-analysis" role="tabpanel" aria-labelledby="tab-analysis" data-panel="analysis" hidden>
+      <div class="section-heading"><div><p class="eyebrow">03 / MAKE SENSE OF DATA</p><h2>Analysis Methods</h2></div><p>Match the method to the research question and the structure and quality of the evidence.</p></div>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>Type of analysis</th><th>Common use cases</th></tr></thead><tbody>
+        <tr><td><strong>Statistical Analysis</strong></td><td>Descriptive statistics, hypothesis testing, correlation</td><td>Summarize repository characteristics, compare groups, and assess relationships between variables.</td></tr>
+        <tr><td><strong>Regression Analysis</strong></td><td>Linear regression, logistic regression, prediction models</td><td>Estimate associations or predict outcomes such as defect-proneness or review duration.</td></tr>
+        <tr><td><strong>Thematic Analysis</strong></td><td>Qualitative coding and theme identification</td><td>Identify recurring themes in developer discussions, issue reports, interviews, or review comments.</td></tr>
+        <tr><td><strong>Grounded Theory</strong></td><td>Systematic qualitative analysis with iterative coding</td><td>Develop concepts or theory from qualitative evidence when existing explanations are limited.</td></tr>
+        <tr><td><strong>Machine Learning</strong></td><td>Classification, clustering, neural networks</td><td>Classify defects, group projects, detect patterns, or build predictive models.</td></tr>
+        <tr><td><strong>Time Series Analysis</strong></td><td>Trend analysis, seasonality, forecasting</td><td>Study how commits, issue activity, downloads, or build failures change over time.</td></tr>
+        <tr><td><strong>Network Analysis</strong></td><td>Graph structure and network measures</td><td>Explore developer collaboration, co-editing networks, and package dependency graphs.</td></tr>
+        <tr><td><strong>Visualization</strong></td><td>Plots, heatmaps, dashboards</td><td>Communicate distributions, comparisons, trends, and relationships; often complements other methods.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="content-panel" id="panel-venues" role="tabpanel" aria-labelledby="tab-venues" data-panel="venues" hidden>
+      <div class="section-heading"><div><p class="eyebrow">04 / SHARE FINDINGS</p><h2>Publication Venues</h2></div><p>Use the venue scope and recent accepted papers to judge fit. Relevance labels below are practical guidance, not official rankings.</p></div>
+      <h3 class="subheading">Conferences</h3>
+      <div class="table-wrap"><table><thead><tr><th>Venue</th><th>Full name</th><th>Focus area</th><th>MSR relevance</th></tr></thead><tbody>
+        <tr><td><strong>ICSE</strong></td><td>International Conference on Software Engineering</td><td>Broad software engineering research, methods, and practice.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>FSE</strong></td><td>Foundations of Software Engineering</td><td>Foundations, techniques, and empirical studies across software engineering.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>ASE</strong></td><td>Automated Software Engineering</td><td>Automation, tools, and intelligent support for software engineering.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>MSR</strong></td><td>Mining Software Repositories</td><td>Repository mining, datasets, empirical studies, and mining techniques.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>EASE</strong></td><td>Evaluation and Assessment in Software Engineering</td><td>Evaluation methods, empirical evidence, and software engineering assessment.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>SANER</strong></td><td>Software Analysis, Evolution and Reengineering</td><td>Software evolution, program analysis, and reengineering.</td><td><span class="tag tag-high">High</span></td></tr>
+      </tbody></table></div>
+      <h3 class="subheading">Journals</h3>
+      <div class="table-wrap"><table><thead><tr><th>Venue</th><th>Full name</th><th>Focus area</th><th>MSR relevance</th></tr></thead><tbody>
+        <tr><td><strong>EMSE</strong></td><td>Empirical Software Engineering</td><td>Empirical methods, evidence, and studies of software engineering practice.</td><td><span class="tag tag-high">High</span></td></tr>
+        <tr><td><strong>TSE</strong></td><td>IEEE Transactions on Software Engineering</td><td>Broad, rigorous software engineering research and methods.</td><td><span class="tag tag-medium">Medium</span></td></tr>
+        <tr><td><strong>TOSEM</strong></td><td>ACM Transactions on Software Engineering and Methodology</td><td>Software engineering methods, techniques, and empirical evaluation.</td><td><span class="tag tag-medium">Medium</span></td></tr>
+      </tbody></table></div>
+      <p class="note">Before submitting, check the venue's current call for papers, scope, artifact policy, and recent proceedings. Fit depends on the paper's contribution, not just its dataset.</p>
+    </section>
+
+    <footer class="page-footer"><span>MSR Research Guide</span><span>Reference guide for research planning</span></footer>
+  </main>
+</body>
+</html>
